@@ -39,7 +39,6 @@ input[type="checkbox"].toggle + label::after {
   color: white;
   border-radius: 1em;
   transition: background-color 200ms ease-in-out, transform 200ms ease-in-out;
-  animation: check-fade 200ms ease-in-out reverse forwards;
 }
 
 input[type="checkbox"].toggle:focus + label::before, input[type="checkbox"].toggle:active + label::before {
@@ -55,9 +54,9 @@ input[type="checkbox"].toggle:checked + label::before, input[type="checkbox"].to
 }
 
 input[type="checkbox"].toggle:checked + label::after, input[type="checkbox"].toggle:read-write + label::after {
+  content: "\2713";
   transform: translateX(100%);
   background-color: hsl(100, 80%, 60%);
-  animation: check-fade 200ms ease-in-out forwards;
 }
 
 input[type="checkbox"].toggle:disabled + label {
@@ -75,18 +74,3 @@ input[type="checkbox"].toggle:disabled + label::after {
 input[type="checkbox"].toggle:active:disabled + label::before {
   outline: none;
 } 
-
-
-@keyframes check-fade {
-  0% {
-    opacity: 1;
-    content: "\2715";
-  }
-  50% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-    content: "\2713";
-  }
-}
