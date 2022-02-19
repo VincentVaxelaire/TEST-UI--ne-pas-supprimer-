@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div id="indexContainer">
+        <div id="index">
+            <section class="view" style="background: pink;">
+                <p>view 5</p>
+            </section>
+
+            <section class="view" style="background: blue;">
+                <p>view 1</p>
+            </section>
+            <section class="view" style="background: green;">
+                <p>view 2</p>
+            </section>
+            <section class="view" style="background: red;">
+                <p>view 3</p>
+            </section>
+            <section class="view" style="background: yellow;">
+                <p>view 4</p>
+            </section>
+            <section class="view" style="background: pink;">
+                <p>view 5</p>
+            </section>
+            
+            <!-- il faut cloner la section one -->
+            <section class="view" style="background: blue;">
+                <p>view 1</p>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        const indexContainer = document.getElementById('indexContainer')
+
+        document.addEventListener('DOMContentLoaded', function(){
+            const goto = window.innerWidth
+            console.log(goto)
+            indexContainer.scrollTo(0, goto)
+        });
+
+        indexContainer.addEventListener('scroll', ()=> {
+            const {scrollTop, clientHeight, scrollHeight} = indexContainer
+            console.log(scrollTop, clientHeight, scrollHeight)
+            if (scrollTop + clientHeight === scrollHeight){
+               indexContainer.scrollTo(0, clientHeight)
+            } else if (scrollTop === 0){
+                indexContainer.scrollTo(0, clientHeight * 5)
+            }
+        })
+    </script>
+</body>
+</html>

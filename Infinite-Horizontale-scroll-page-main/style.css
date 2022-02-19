@@ -1,0 +1,45 @@
+:root{
+    --screen-number: fit-content;
+}
+
+*, *::before, *::after{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    overflow-y: hidden;
+}
+.view {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+}
+
+
+#index{
+    display: flex;
+    flex-direction: row;
+    width: var(--screen-number);
+    transform: rotate(90deg) translateY(-100vh);
+    transform-origin: top left;
+    -webkit-overflow-scrolling: touch;
+}
+#indexContainer {
+    width: 100vh;
+    height: 100vw;
+    transform: rotate(-90deg) translateX(-100vh);
+    transform-origin: top left;
+    overflow-x: hidden;
+
+    /* pour ie et mozilla */
+    -ms-overlow-style: none;
+    scrollbar-width: none;
+}
+::-webkit-scrollbar {
+    display: none;
+}
