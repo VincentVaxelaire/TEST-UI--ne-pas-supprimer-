@@ -1,0 +1,64 @@
+body{
+  height: 300vh;
+}
+a{
+  text-decoration: none;
+  color: white;
+}
+
+/*Shitty btn who become a fixed icon*/
+.btn-to-stiky-icon{
+  position: absolute;
+  bottom: calc(55vh - 70px);
+  /*need to reduce 50% for mobile responsive*/
+  left: calc(50% - 110px);
+  width: 220px;
+  padding: 30px;
+  border-radius: 60px;
+  transition: all .5s ease-in-out;
+  visibility: visible;
+  overflow: hidden;
+  transform: translateZ(0);
+  background: #333333;
+}
+
+.btn-to-stiky-icon .title{
+  visibility: visible;
+  position: relative;
+  font-size: 32px;
+  color: #fff;
+  transition: all .5s ease-in-out;
+}
+
+.btn-to-stiky-icon .icon{
+  display: none;
+}
+
+.btn-to-stiky-icon.stiky-icon{
+  position: fixed;
+  z-index: 9;
+  bottom: 30px;
+  left: calc(99% - 75px);
+  width: 60px;
+  height: 60px;
+  padding: 0px;
+  transition: all .5s ease-in-out;
+  visibility: visible;
+  background-color: #ef4b6c;
+  border-radius: 50%;
+  transform: translateZ(0);
+}
+
+.btn-to-stiky-icon.stiky-icon .title{
+  display: none;
+}
+
+.btn-to-stiky-icon.stiky-icon .icon{
+  display: initial;
+  position: relative;
+  top: 6px;
+  left: 14px;
+  font-size: 32px;
+  color: #fff;
+  transition: all .5s ease-in-out;
+}
