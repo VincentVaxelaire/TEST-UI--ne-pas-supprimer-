@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="x-UA-Compatible" content="ie=edge">
+  <title>paint like</title>
+  <style>
+    *, *::before, *::after {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+      -moz-user-select: -moz-none;
+      -khtml-user-select: none;
+      -webkit-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+    a {
+      position: absolute;
+      bottom: 40px;
+      right: 10px;
+      z-index: 2;
+    }
+    button {
+      position: absolute;
+      top: 10px;
+      left: 45vw;
+      z-index: 2;
+      width: 200px;
+      height: 30px;
+    }
+    canvas{
+      position: fixed;
+      z-index: -1;
+    }
+    .tools{
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr auto;
+      position: absolute;
+      bottom: 0;
+      background-color: white;
+      width: 100%;
+      height: 80px;
+    }
+    .eraser{
+      display: block;
+      background-color: lightcoral;
+      width: 50px;
+      height: 20px;
+    }
+  </style>
+</head>
+<body id='body'>
+  <canvas id="canvas" width="600" height="600"></canvas>
+  <a href="https://github.com/VincentVaxelaire/jely-hover-effect" target="_blank" rel="noopener noreferrer">see code on github</a>
+  <button id="button">Download Me!</button>
+  <div class="tools">
+    <div class="brushTools">
+      <p>choose a brush size</p>
+      <input type="number" id="brushSize" min="1" max="100" value="1">
+    </div>
+    <div class="colors">
+      <p>choose a color</p>
+      <input type="color" id="color" value="#ff0000">
+    </div>
+    <div class="eraserSpace">
+      <p>choose eraser</p>
+      <span class="eraser"></span>
+    </div>
+  </div>
+  <script>
+    const dlButton = document.getElementById('button')
+    const canvas = document.getElementById('canvas')
+    let brushSizes = document.getElementById('brushSize')
+    let brushColors = document.getElementById('color')
+    const eraser = document.querySelector('.eraser')
+    const ctx = canvas.getContext('2d')
+    const rect = canvas.getBoundingClientRect()
+    
+    // define canvas sizes
+    const sizes = {
+      width: window.innerWidth,
+      height: window.innerHeight
+    }
+    canvas.setAttribute("width", sizes.width)
+    canvas.setAttribute("height", sizes.height - 80)
+
+    // draw white background
+    ctx.fillStyle = "white"
+    ctx.fillRect(0, 0, sizes.width, sizes.height)
+    
+    // define brush size
+    let size = brushSizes.value
+    brushSizes.addEventListener("input", () => {
+      size = brushSizes.value
+    })
+    
+    // define brush color
+    let color = brushColors.value
+    brushColors.addEventListener("input", () => {
+      color = brushColors.value
+    })
+      
+    // eraser
+    const device = 'ontouchstart' in canvas ? 'touchstart' : 'click'
+    eraser.addEventListener(device, () => {
+      color = '#ffffff'
+    })
+
+    // drawLine
+    let isDrawing = false
+    let x = 0
+    let y = 0
+
+    const action1 = 'ontouchstart' in canvas ? 'touchstart' : 'mousedown'
+    canvas.addEventListener(action1, e => {
+      x = e.clientX - rect.left
+      y = e.clientY - rect.top
+      isDrawing = true
+    })
+
+    const action2 = 'ontouchmove' in canvas ? 'touchmove' : 'mousemove'
+    canvas.addEventListener(action2, e => {
+      if (isDrawing === true) {
+        drawLine(ctx, x, y, e.clientX - rect.left, e.clientY - rect.top)
+        x = e.clientX - rect.left
+        y = e.clientY - rect.top
+      }
+    })
+
+    const action3 = 'ontouchend' in window ? 'touchend' : 'mouseup'
+    window.addEventListener(action3, e => {
+      if (isDrawing === true) {
+        drawLine(ctx, x, y, e.clientX - rect.left, e.clientY - rect.top)
+        x = 0
+        y = 0
+        isDrawing = false
+      }
+    })
+
+    // draw line once
+    function drawLine(ctx, x1, y1, x2, y2) {
+      ctx.beginPath()
+      ctx.strokeStyle = color
+      ctx.lineWidth = size 
+      ctx.lineCap = 'round'
+      ctx.lineJoin = 'round'
+      ctx.shadowBlur = 2
+      ctx.moveTo(x1, y1)
+      ctx.lineTo(x2, y2)
+      ctx.stroke()
+      ctx.closePath()
+    }
+
+    // download draw
+    button.addEventListener('click', () => {
+      // get canvas data  
+      var image = canvas.toDataURL()
+    
+      // create temporary link  
+      var tmpLink = document.createElement( 'a' )
+      tmpLink.download = 'image.png' // set the name of the download file 
+      tmpLink.href = image
+    
+      // temporarily add link to body and initiate the download  
+      document.body.appendChild( tmpLink )
+      tmpLink.click()
+      document.body.removeChild( tmpLink )
+    })
+  </script>
+</body>
+</html>

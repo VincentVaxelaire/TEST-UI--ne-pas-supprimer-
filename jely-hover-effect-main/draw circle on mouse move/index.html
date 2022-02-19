@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="x-UA-Compatible" content="ie=edge">
+  <title>Draw circle on mouse move</title>
+  <style>
+    canvas{
+      border: 1px solid #000;
+    }
+  </style>
+</head>
+<body>
+  <h1>hover me <3</h1>
+  <canvas id="canvas" width="600" height="600"></canvas>
+  <a href="https://github.com/VincentVaxelaire/jely-hover-effect" target="_blank" rel="noopener noreferrer">see code on github</a>
+  <script type="module">
+    import Mouse from '../mouseMove.js'
+
+    const canvas = document.getElementById('canvas')
+    const ctx = canvas.getContext('2d')
+    const pos = new Mouse(canvas)
+
+    function drawBall(x,y,r){
+      ctx.beginPath()
+      // arc(x, y, radius, crop, draw multi arc)
+      ctx.arc(x, y, r, 0, 2*Math.PI)
+      ctx.fillStyle = '#333'
+      ctx.fill()
+      ctx.closePath()
+    }
+
+    function Render() {
+      window.requestAnimationFrame(Render)
+      // console.log(pos.x, pos.y)
+      drawBall(pos.x, pos.y, 10)
+    } Render()
+  </script>
+</body>
+</html>
