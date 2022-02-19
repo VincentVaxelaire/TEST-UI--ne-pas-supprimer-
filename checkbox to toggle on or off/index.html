@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>toggle button</title>
+</head>
+<body>
+  <input type="checkbox" id="check" class="toggle">
+  <label for="check">Checked ?</label>
+  <nr>
+  <input disabled type="checkbox" id="uncheckable" class="toggle">
+  <label for="uncheckable">Checked ?</label>
+  <nr>
+    <input checked contenteditable="true" type="checkbox" id="readonly" class="toggle">
+    <label for="readonly">Not mutable</label>
+</body>
+<script>
+  const cb = document.querySelector('#readonly');
+  console.log(cb.checked);
+  cb.addEventListener('click', () => {
+    console.log(cb.checked);
+  });
+</script>
+</html>
